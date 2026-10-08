@@ -3,462 +3,342 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Лабораторийн ажил 4 - Бямбадулам</title>
-  <style>
-    /* 1. Ерөнхий стил тохиргоо */
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+  <title>Бүртгэлийн систем | Лаборатори 03 & 04</title>
 
-    body {
-      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-      background-color: #f1f5f9;
-      color: #1e293b;
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-    }
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    /* 2. Header (Зураг дээрхтэй яг ижил Gradient өнгө ба зураасан чиэглэл) */
-    header {
-      background: linear-gradient(135deg, #4f46e5 0%, #3b82f6 50%, #6366f1 100%);
-      color: white;
-      padding: 2.5rem 1.5rem;
-      text-align: center;
-      position: relative;
-      box-shadow: 0 4px 15px rgba(59, 130, 246, 0.2);
-    }
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
 
-    header h1 {
-      font-size: 2.2rem;
-      font-weight: 800;
-      letter-spacing: -0.5px;
-      margin-bottom: 0.5rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
-    }
-
-    header p {
-      font-size: 1.05rem;
-      opacity: 0.9;
-      font-weight: 400;
-    }
-
-    .header-line {
-      width: 60px;
-      height: 4px;
-      background-color: #38bdf8;
-      margin: 1rem auto 0 auto;
-      border-radius: 2px;
-    }
-
-    /* 3. Navigation Bar (Зурагтай яг ижил бараан background ба идэвхтэй товчлуур) */
-    nav {
-      background-color: #0b132b;
-      padding: 0.9rem 2rem;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.15);
-    }
-
-    .nav-container {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: flex; /* Flexbox */
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .brand-logo {
-      font-weight: 800;
-      font-size: 1.3rem;
-      color: #38bdf8;
-      text-decoration: none;
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
-    }
-
-    .nav-links {
-      list-style: none;
-      display: flex; /* Flexbox */
-      align-items: center;
-      gap: 1.2rem;
-    }
-
-    .nav-links a {
-      color: #cbd5e1;
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 0.95rem;
-      padding: 0.5rem 1.1rem;
-      border-radius: 8px;
-      transition: all 0.2s ease;
-    }
-
-    /* Зураг дээрх шиг идэвхтэй (Active) Нүүр товчлуур */
-    .nav-links a.active {
-      background-color: #3b82f6;
-      color: white;
-      box-shadow: 0 2px 8px rgba(59, 130, 246, 0.4);
-    }
-
-    .nav-links a:hover:not(.active) {
-      color: white;
-      background-color: rgba(255,255,255,0.08);
-    }
-
-    /* 4. Үндсэн Layout (Grid ашиглаж Main ба Sidebar-ийг байршуулна) */
-    .container {
-      max-width: 1200px;
-      width: 100%;
-      margin: 2rem auto;
-      padding: 0 1.5rem;
-      flex: 1;
-      display: grid;
-      grid-template-columns: 3fr 1fr;
-      gap: 2rem;
-    }
-
-    /* 5. Main Content ба Сэдвийн гарчиг */
-    .section-header {
-      margin-bottom: 1.5rem;
-      border-bottom: 3px solid #6366f1;
-      padding-bottom: 0.6rem;
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-    }
-
-    .section-title {
-      font-size: 1.5rem;
-      font-weight: 800;
-      color: #0f172a;
-    }
-
-    /* 3 Баганатай CSS Grid */
-    .cards-grid {
-      display: grid; /* CSS Grid */
-      grid-template-columns: repeat(3, 1fr); /* 3 багана */
-      gap: 1.5rem; /* gap ашигласан */
-    }
-
-    .card {
-      background: white;
-      border-radius: 16px;
-      overflow: hidden;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.03);
-      display: flex;
-      flex-direction: column;
-      border: 1px solid #e2e8f0;
-      transition: transform 0.25s ease, box-shadow 0.25s ease;
-    }
-
-    .card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 12px 25px rgba(0,0,0,0.08);
-    }
-
-    /* Зураг дээрх карт бүрийн содон орон зай ба дээд талын тусгаарлагч баннер */
-    .card-banner {
-      height: 110px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 3.2rem;
-    }
-
-    .card-1 .card-banner { background: #ffe4e6; }
-    .card-2 .card-banner { background: #e0f2fe; }
-    .card-3 .card-banner { background: #f0fdf4; }
-
-    .card-body {
-      padding: 1.25rem;
-      display: flex;
-      flex-direction: column;
-      flex: 1;
-    }
-
-    /* Badge шинж чанарууд */
-    .card-badge {
-      font-size: 0.75rem;
-      font-weight: 800;
-      padding: 0.3rem 0.7rem;
-      border-radius: 20px;
-      width: fit-content;
-      margin-bottom: 0.8rem;
-      letter-spacing: 0.5px;
-    }
-
-    .card-1 .card-badge { background: #ffe4e6; color: #e11d48; }
-    .card-2 .card-badge { background: #dbeafe; color: #2563eb; }
-    .card-3 .card-badge { background: #dcfce7; color: #16a34a; }
-
-    .card h3 {
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: #0f172a;
-      margin-bottom: 0.5rem;
-    }
-
-    .card p {
-      font-size: 0.88rem;
-      color: #64748b;
-      line-height: 1.5;
-      margin-bottom: 1.2rem;
-      flex: 1;
-    }
-
-    .card-btn {
-      width: 100%;
-      background-color: #3b82f6;
-      color: white;
-      border: none;
-      padding: 0.65rem;
-      border-radius: 8px;
-      font-weight: 600;
-      cursor: pointer;
-      font-size: 0.9rem;
-      transition: background 0.2s ease;
-    }
-
-    .card-btn:hover {
-      background-color: #2563eb;
-    }
-
-    /* 6. Sidebar Хэсэг (Таны мэдээлэл болон холбоос хэсэг) */
-    aside {
-      display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
-    }
-
-    .profile-card {
-      background: white;
-      border-radius: 16px;
-      padding: 1.5rem;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.03);
-      border: 1px solid #e2e8f0;
-      text-align: center;
-    }
-
-    .profile-avatar {
-      width: 70px;
-      height: 70px;
-      background: linear-gradient(135deg, #6366f1, #3b82f6);
-      color: white;
-      font-size: 1.8rem;
-      font-weight: bold;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 1rem auto;
-      box-shadow: 0 4px 10px rgba(99, 102, 241, 0.3);
-    }
-
-    .profile-card h3 {
-      font-size: 1.2rem;
-      color: #0f172a;
-      margin-bottom: 0.2rem;
-    }
-
-    .profile-card .role {
-      font-size: 0.85rem;
-      color: #3b82f6;
-      font-weight: 700;
-      margin-bottom: 0.8rem;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    .profile-info {
-      font-size: 0.88rem;
-      color: #64748b;
-      line-height: 1.6;
-      background-color: #f8fafc;
-      padding: 0.8rem;
-      border-radius: 8px;
-    }
-
-    .sidebar-widget {
-      background: white;
-      border-radius: 16px;
-      padding: 1.5rem;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.03);
-      border: 1px solid #e2e8f0;
-    }
-
-    .sidebar-widget h4 {
-      font-size: 1rem;
-      color: #0f172a;
-      margin-bottom: 1rem;
-    }
-
-    .sidebar-list {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 0.6rem;
-    }
-
-    .sidebar-list li a {
-      text-decoration: none;
-      color: #475569;
-      font-size: 0.9rem;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.6rem 0.8rem;
-      border-radius: 8px;
-      background-color: #f8fafc;
-      transition: all 0.2s;
-    }
-
-    .sidebar-list li a:hover {
-      background-color: #eff6ff;
-      color: #2563eb;
-    }
-
-    /* 7. Footer */
-    footer {
-      background-color: #0b132b;
-      color: #94a3b8;
-      text-align: center;
-      padding: 1.5rem;
-      margin-top: auto;
-      font-size: 0.9rem;
-    }
-
-    footer span {
-      color: #38bdf8;
-      font-weight: 600;
-    }
-
-    /* Responsive тохиргоо */
-    @media (max-width: 960px) {
-      .container {
-        grid-template-columns: 1fr;
-      }
-      .cards-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
-    @media (max-width: 640px) {
-      .cards-grid {
-        grid-template-columns: 1fr;
-      }
-      .nav-container {
-        flex-direction: column;
-        gap: 1rem;
-      }
-    }
-  </style>
+  <!-- External CSS -->
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <!-- Header Section -->
-  <header>
-    <h1>💻 Лабораторийн ажил 4</h1>
-    <p>CSS Flexbox ба CSS Grid систем ашигласан веб хуудас</p>
-    <div class="header-line"></div>
+  <!-- NAVIGATION BAR (Flexbox) -->
+  <header class="navbar">
+    <div class="nav-brand">
+      <i class="fa-solid fa-graduation-cap"></i>
+      <span>EduPortal</span>
+    </div>
+    <nav class="nav-links">
+      <a href="#" class="active">Нүүр</a>
+      <a href="#">Сургалтууд</a>
+      <a href="#">Заавар</a>
+      <a href="#">Холбоо барих</a>
+    </nav>
+    <div class="nav-actions">
+      <button class="btn-outline">Нэвтрэх</button>
+    </div>
   </header>
 
-  <!-- Navigation Bar (Flexbox) -->
-  <nav>
-    <div class="nav-container">
-      <a href="#" class="brand-logo">🚀 WebStudio</a>
-      <ul class="nav-links">
-        <li><a href="#" class="active">Нүүр</a></li>
-        <li><a href="#">Үйлчилгээ</a></li>
-        <li><a href="#">Мэдээлэл</a></li>
-        <li><a href="#">Холбоо барих</a></li>
-      </ul>
-    </div>
-  </nav>
+  <!-- Decorative Background -->
+  <div class="bg-circle circle-1"></div>
+  <div class="bg-circle circle-2"></div>
+  <div class="bg-circle circle-3"></div>
 
-  <!-- Layout Container (Main + Sidebar Grid) -->
-  <div class="container">
-    
-    <!-- Main Content -->
-    <main>
-      <div class="section-header">
-        <span style="font-size: 1.5rem;">⭐</span>
-        <h2 class="section-title">Онцлох картууд (3 баганатай Grid)</h2>
-      </div>
-      
-      <!-- 3 Баганатай Cards Grid -->
-      <div class="cards-grid">
-        
-        <!-- Card 1 -->
-        <article class="card card-1">
-          <div class="card-banner">💻</div>
-          <div class="card-body">
-            <span class="card-badge">HTML5</span>
-            <h3>Семантик Бүтэц</h3>
-            <p>Вэб хуудасны үндсэн бүтцийг цэвэрхэн ба семантик кодоор гүйцэтгэв.</p>
-            <button class="card-btn">Дэлгэрэнгүй</button>
-          </div>
-        </article>
+  <main class="page-wrapper">
 
-        <!-- Card 2 -->
-        <article class="card card-2">
-          <div class="card-banner">📐</div>
-          <div class="card-body">
-            <span class="card-badge">CSS Flexbox</span>
-            <h3>Flex Layout</h3>
-            <p>Navigation ба элементүүдийн байршлыг Flexbox-оор тэгшилсэн.</p>
-            <button class="card-btn">Дэлгэрэнгүй</button>
-          </div>
-        </article>
+    <!-- LEFT INFORMATION PANEL -->
+    <section class="info-panel">
 
-        <!-- Card 3 -->
-        <article class="card card-3">
-          <div class="card-banner">📊</div>
-          <div class="card-body">
-            <span class="card-badge">CSS Grid</span>
-            <h3>Grid Сүлжээ</h3>
-            <p>Олон баганат картуудыг CSS Grid систем ашиглан байршууллаа.</p>
-            <button class="card-btn">Дэлгэрэнгүй</button>
-          </div>
-        </article>
-
-      </div>
-    </main>
-
-    <!-- Sidebar Section -->
-    <aside>
-      <!-- Оюутны Мэдээллийн Карт -->
-      <div class="profile-card">
-        <div class="profile-avatar">Б</div>
-        <h3>Бямбадулам</h3>
-        <p class="role">Оюутны мэдээлэл</p>
-        <div class="profile-info">
-          📚 Мэдээллийн технологи<br>
-          🎓 2-р курс
+      <div class="brand">
+        <div class="brand-icon">
+          <i class="fa-solid fa-graduation-cap"></i>
+        </div>
+        <div>
+          <h2>Edu<span>Form</span></h2>
+          <p>Student Portal</p>
         </div>
       </div>
 
-      <!-- Sidebar Цэс -->
-      <div class="sidebar-widget">
-        <h4>📌 Цэс ба Холбоос</h4>
-        <ul class="sidebar-list">
-          <li><a href="#">🔹 Сүүлийн үеийн мэдээ</a></li>
-          <li><a href="#">🔹 Сургалтын хөтөлбөр</a></li>
-          <li><a href="#">🔹 Гарын авлага татах</a></li>
-        </ul>
-      </div>
-    </aside>
+      <div class="info-content">
+        <span class="small-badge">
+          <i class="fa-solid fa-sparkles"></i>
+          LABORATORY 03 & 04
+        </span>
 
+        <h1>
+          Суралцагчийн
+          <span>бүртгэлийн систем</span>
+        </h1>
+
+        <p class="description">
+          Энэхүү формоор өөрийн үндсэн мэдээллийг оруулж,
+          сургалтын системд бүртгүүлэх боломжтой.
+        </p>
+
+        <div class="feature-list">
+          <div class="feature">
+            <div class="feature-icon">
+              <i class="fa-solid fa-shield-halved"></i>
+            </div>
+            <div>
+              <h3>Аюулгүй бүртгэл</h3>
+              <p>Таны мэдээллийг хамгаалсан систем</p>
+            </div>
+          </div>
+
+          <div class="feature">
+            <div class="feature-icon purple">
+              <i class="fa-solid fa-bolt"></i>
+            </div>
+            <div>
+              <h3>Хялбар ашиглалт</h3>
+              <p>Энгийн бөгөөд хурдан бүртгэл</p>
+            </div>
+          </div>
+
+          <div class="feature">
+            <div class="feature-icon pink">
+              <i class="fa-solid fa-circle-check"></i>
+            </div>
+            <div>
+              <h3>Баталгаажуулалт</h3>
+              <p>Имэйлээр мэдээллээ баталгаажуулна</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="stats">
+          <div class="stat">
+            <strong>100%</strong>
+            <span>Secure</span>
+          </div>
+          <div class="stat">
+            <strong>24/7</strong>
+            <span>Access</span>
+          </div>
+          <div class="stat">
+            <strong>Easy</strong>
+            <span>To Use</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="copyright">
+        © 2026 EduForm · Laboratory 03 & 04
+      </div>
+
+    </section>
+
+    <!-- RIGHT FORM CARD -->
+    <section class="form-card">
+
+      <!-- Header -->
+      <div class="form-header">
+        <div>
+          <span class="form-label">WELCOME 👋</span>
+          <h2>Бүртгэл үүсгэх</h2>
+          <p>Доорх мэдээллийг үнэн зөв бөглөнө үү.</p>
+        </div>
+        <div class="header-icon">
+          <i class="fa-solid fa-user-plus"></i>
+        </div>
+      </div>
+
+      <!-- Dynamic Progress -->
+      <div class="progress-area">
+        <div class="progress-info">
+          <span>Бүртгэлийн явц</span>
+          <strong id="progressPercentage">0%</strong>
+        </div>
+        <div class="progress-bar">
+          <span id="progressBarFill"></span>
+        </div>
+      </div>
+
+      <form id="registerForm">
+
+        <!-- NAME -->
+        <div class="form-group">
+          <label for="fullname">
+            Овог нэр
+            <span class="required">*</span>
+          </label>
+          <div class="input-wrapper">
+            <i class="fa-solid fa-user input-icon"></i>
+            <input type="text" id="fullname" placeholder="Батболдын Тэмүүлэн" required>
+          </div>
+        </div>
+
+        <!-- EMAIL -->
+        <div class="form-group">
+          <label for="email">
+            И-мэйл хаяг
+            <span class="required">*</span>
+          </label>
+          <div class="input-wrapper relative-box">
+            <i class="fa-solid fa-envelope input-icon"></i>
+            <input type="email" id="email" placeholder="name@example.com" required>
+            <span class="badge badge-success">
+              <i class="fa-solid fa-check"></i> Verified
+            </span>
+            <div class="tooltip">
+              <i class="fa-solid fa-circle-info"></i> Сургуулийн и-мэйл ашиглана уу
+            </div>
+          </div>
+        </div>
+
+        <!-- PHONE -->
+        <div class="form-group">
+          <label for="phone">Утасны дугаар</label>
+          <div class="input-wrapper">
+            <i class="fa-solid fa-phone input-icon"></i>
+            <input type="tel" id="phone" placeholder="99112233">
+          </div>
+        </div>
+
+        <!-- PASSWORD -->
+        <div class="form-group">
+          <label for="password">
+            Нууц үг
+            <span class="required">*</span>
+          </label>
+          <div class="input-wrapper password-wrapper">
+            <i class="fa-solid fa-lock input-icon"></i>
+            <input type="password" id="password" placeholder="Нууц үгээ оруулна уу" required>
+            <button type="button" class="password-toggle" onclick="togglePassword()">
+              <i id="eyeIcon" class="fa-solid fa-eye"></i>
+            </button>
+          </div>
+          <!-- Password Strength -->
+          <div class="password-strength">
+            <div class="strength-bars">
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+            <small id="strengthText">Нууц үгийн хүч: -</small>
+          </div>
+        </div>
+
+        <!-- TWO COLUMNS (Grid) -->
+        <div class="two-columns">
+          <!-- ROLE -->
+          <div class="form-group">
+            <label for="role">Хэрэглэгчийн төрөл</label>
+            <div class="input-wrapper">
+              <i class="fa-solid fa-graduation-cap input-icon"></i>
+              <select id="role">
+                <option value="student">Оюутан</option>
+                <option value="teacher">Багш</option>
+                <option value="guest">Зочин</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- GENDER -->
+          <div class="form-group">
+            <label for="gender">Хүйс</label>
+            <div class="input-wrapper">
+              <i class="fa-solid fa-venus-mars input-icon"></i>
+              <select id="gender">
+                <option value="">Сонгох</option>
+                <option>Эрэгтэй</option>
+                <option>Эмэгтэй</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- MAJOR -->
+        <div class="form-group">
+          <label for="major">Мэргэжил / Хөтөлбөр</label>
+          <div class="input-wrapper">
+            <i class="fa-solid fa-book-open input-icon"></i>
+            <select id="major">
+              <option>Мэдээллийн технологи</option>
+              <option>Программ хангамж</option>
+              <option>Нягтлан бодох бүртгэл</option>
+              <option>Бизнесийн удирдлага</option>
+              <option>Санхүү</option>
+              <option>Бусад</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- BIRTH DATE -->
+        <div class="form-group">
+          <label for="birthdate">Төрсөн огноо</label>
+          <div class="input-wrapper">
+            <i class="fa-solid fa-calendar-days input-icon"></i>
+            <input type="date" id="birthdate">
+          </div>
+        </div>
+
+        <!-- BIO -->
+        <div class="form-group">
+          <label for="bio">Өөрийн тухай</label>
+          <div class="input-wrapper textarea-wrapper">
+            <i class="fa-solid fa-comment input-icon textarea-icon"></i>
+            <textarea id="bio" rows="3" placeholder="Өөрийн сонирхол, зорилгоо товч бичнэ үү..."></textarea>
+          </div>
+        </div>
+
+        <!-- NOTIFICATION -->
+        <div class="notification-box">
+          <div class="notification-icon">
+            <i class="fa-solid fa-bell"></i>
+          </div>
+          <div>
+            <strong>Мэдэгдэл авах</strong>
+            <p>Сургалтын шинэ мэдээллийг и-мэйлээр авах</p>
+          </div>
+          <label class="switch">
+            <input type="checkbox" checked>
+            <span class="slider"></span>
+          </label>
+        </div>
+
+        <!-- TERMS -->
+        <div class="form-group checkbox-group">
+          <label class="custom-checkbox">
+            <input type="checkbox" required>
+            <span class="checkmark"></span>
+            <span>
+              Би <a href="#">үйлчилгээний нөхцөл</a> болон <a href="#">нууцлалын бодлого</a>-ыг зөвшөөрч байна.
+            </span>
+          </label>
+        </div>
+
+        <!-- BUTTON -->
+        <button type="submit" class="btn-submit">
+          <span>Бүртгүүлэх</span>
+          <i class="fa-solid fa-arrow-right"></i>
+        </button>
+
+        <!-- FOOTER -->
+        <div class="form-footer">
+          <span>Бүртгэлтэй юу?</span>
+          <a href="#">
+            Нэвтрэх
+            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+          </a>
+        </div>
+
+      </form>
+    </section>
+  </main>
+
+  <!-- SUCCESS MESSAGE -->
+  <div id="successMessage" class="success-message">
+    <div class="success-icon">
+      <i class="fa-solid fa-check"></i>
+    </div>
+    <div>
+      <strong>Амжилттай!</strong>
+      <p>Таны бүртгэл амжилттай илгээгдлээ.</p>
+    </div>
+    <button onclick="closeMessage()">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
   </div>
 
-  <!-- Footer Section -->
-  <footer>
-    <p>© 2026 Вэб Зохиомж | Гүйцэтгэсэн: <span>Бямбадулам</span> (Мэдээллийн технологи 2-р курс)</p>
-  </footer>
-
+  <script src="script.js"></script>
 </body>
 </html>
